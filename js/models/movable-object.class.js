@@ -1,5 +1,6 @@
 class MovableObject extends DrawableObject {
     speed = 0.15;
+    y = 0;
     otherDirection = false;
     speedY = 0;
     acceleration = 2.5; //Wert für Beschleunigung
@@ -13,26 +14,31 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-            
-        }, 1000 / 25); 
+
+        }, 1000 / 25);
     }
 
-    isAboveGround(){
-        return this.y < 180;
+    isAboveGround() {
+        if (this instanceof ThrowableObkject) {
+            return true;
+        }
+        else {
+            return this.y < 180;
+        }
     }
 
     // Bessere Formel zur Kollisionsberechnung (Genauer)
     isColliding(mo) {
         return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height;
     }
 
-    hit(){
+    hit() {
         this.energy -= 5;
 
-        if (this.energy < 0){
+        if (this.energy < 0) {
             this.energy = 0;
         }
         else {
@@ -40,13 +46,13 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    isHurt(){
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; //Difference in s
         return timepassed < 1;
     }
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
 

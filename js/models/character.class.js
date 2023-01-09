@@ -1,7 +1,21 @@
 class Character extends MovableObject {
-    y = 130;
+    y = 110;
     height = 280;
     speed = 10;
+
+    IMAGES_STAND = [
+        'assets/img/2_character_pepe/1_idle/idle/I-1.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-2.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-3.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-4.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-5.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-6.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-7.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-8.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-9.png',
+        'assets/img/2_character_pepe/1_idle/idle/I-10.png'
+    ];
+
     IMAGES_WALKING = [
         'assets/img/2_character_pepe/2_walk/W-21.png',
         'assets/img/2_character_pepe/2_walk/W-22.png',
@@ -48,6 +62,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_STAND);
         this.applyGravity();
         this.animate();
     }
@@ -57,9 +72,9 @@ class Character extends MovableObject {
         setInterval(() => {
             this.walking_sound.pause();
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-               this.moveRight();
-               this.otherDirection = false;
-               //this.walking_sound.play();
+                this.moveRight();
+                this.otherDirection = false;
+                //this.walking_sound.play();
             }
             if (this.world.keyboard.LEFT && this.x > 0) {
                 this.moveLeft();
@@ -82,10 +97,10 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                
+
             }
 
-            else if (this.isHurt()){
+            else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             }
 
@@ -97,8 +112,11 @@ class Character extends MovableObject {
                     //walk animation
                     this.playAnimation(this.IMAGES_WALKING);
                 }
+                else {
+                    this.playAnimation(this.IMAGES_STAND);
+                }
             }
-        }, 50);
+        }, 100);
 
     }
 }
