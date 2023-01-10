@@ -28,12 +28,44 @@ class MovableObject extends DrawableObject {
     }
 
     // Bessere Formel zur Kollisionsberechnung (Genauer)
-    isColliding(mo) {
+    /*isColliding(mo) {
         return this.x + this.width > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x < mo.x &&
-            this.y < mo.y + mo.height;
+        this.y + this.height > mo.y &&
+        this.x < mo.x &&
+        this.y < mo.y + mo.height;
+    }*/
+
+    isColliding(object) {
+        return this.rightBorder() > this.leftObjectBorder(object) &&
+            this.bottomBorder() > this.topObjectBorder(object) &&
+            this.leftBorder() < this.rightObjectBorder(object) &&
+            this.topBorder() < this.bottomObjectBorder(object);
     }
+    rightBorder() {
+        return this.x + this.width - this.offset.right;
+    }
+    leftBorder() {
+        return this.x + this.offset.left;
+    }
+    topBorder() {
+        return this.y + this.offset.top;
+    }
+    bottomBorder() {
+        return this.y + this.height - this.offset.bottom;
+    }
+    rightObjectBorder(object) {
+        return object.x + object.width - object.offset.right;
+    }
+    leftObjectBorder(object) {
+        return object.x + object.offset.left;
+    }
+    topObjectBorder(object) {
+        return object.y + object.offset.top;
+    }
+    bottomObjectBorder(object) {
+        return object.y + object.height - object.offset.bottom;
+    }
+
 
     hit() {
         this.energy -= 5;
