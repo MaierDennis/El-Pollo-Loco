@@ -51,11 +51,16 @@ class World {
     }
 
     checkCollectCoin(){
-        this.level.coins.forEach((coin) => {
-            if (this.character.isColliding(coin)) {
-                console.log('Treffer'); 
+        this.level.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin, index)) {
+                console.log('Treffer', index); 
+                this.removeCoinFromMap(index);
             }
         });
+    }
+
+    removeCoinFromMap(i){
+        this.level.coins.splice(i);
     }
 
     draw() {
@@ -74,6 +79,7 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.throwableObjects);
         this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.salsabottles);
         
 
         this.ctx.translate(-this.camera_x, 0);

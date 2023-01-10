@@ -28,11 +28,35 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+        if (this instanceof Character) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x + 10, this.y + 120, this.width - 20, this.height - 120);
+            ctx.stroke();
+        }
+
+        if (this instanceof Chicken || this instanceof Endboss) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = "blue";
             ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+
+        if (this instanceof Coin) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x + 50, this.y + 50, this.width - 100, this.height - 100);
+            ctx.stroke();
+        }
+
+        if (this instanceof SalsaBottle) {
+            ctx.beginPath();
+            ctx.lineWidth = '5';
+            ctx.strokeStyle = "blue";
+            ctx.rect(this.x + 25, this.y + 10, this.width - 50, this.height - 20);
             ctx.stroke();
         }
     }
