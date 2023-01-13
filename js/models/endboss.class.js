@@ -45,15 +45,5 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_ANGRY);
             } 
         }, 250);
-        
-            
-        
-
-        /*else if (isAngry) {
-            setInterval(() => {
-                this.playAnimation(this.IMAGES_ANGRY);
-            }, 250);
-        }*/
-        
     }
 }
