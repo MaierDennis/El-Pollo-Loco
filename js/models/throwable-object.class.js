@@ -1,4 +1,4 @@
-class ThrowableObkject extends MovableObject {
+class ThrowableObject extends MovableObject {
 
     constructor(x, y){
         super().loadImage('assets/img/6_salsa_bottle/salsa_bottle.png');

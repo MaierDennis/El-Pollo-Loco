@@ -14,26 +14,18 @@ class MovableObject extends DrawableObject {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
-
         }, 1000 / 25);
     }
 
     isAboveGround() {
-        if (this instanceof ThrowableObkject) {
+        if (this instanceof ThrowableObject) {
             return true;
         }
         else {
-            return this.y < 180;
+            return this.y < 155;
         }
     }
 
-    // Bessere Formel zur Kollisionsberechnung (Genauer)
-    /*isColliding(mo) {
-        return this.x + this.width > mo.x &&
-        this.y + this.height > mo.y &&
-        this.x < mo.x &&
-        this.y < mo.y + mo.height;
-    }*/
 
     isColliding(object) {
         return this.rightBorder() > this.leftObjectBorder(object) &&

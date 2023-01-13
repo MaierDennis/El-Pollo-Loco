@@ -1,7 +1,14 @@
 class Character extends MovableObject {
-    y = 180;
+    y = 155;
     height = 280;
     speed = 10;
+
+    offset = {
+        top: 130,
+        bottom: 15,
+        left: 40,
+        right: 40
+    }
 
     IMAGES_STAND = [
         'assets/img/2_character_pepe/1_idle/idle/I-1.png',
@@ -93,11 +100,13 @@ class Character extends MovableObject {
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
-        setInterval(() => {
+        let interval = setInterval(() => {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-
+                setTimeout(() => {
+                    clearInterval(interval);
+                }, 300);
             }
 
             else if (this.isHurt()) {

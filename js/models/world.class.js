@@ -7,8 +7,12 @@ class World {
     camera_x = 0;
     statusBar = new Statusbar();
     throwableObjects = [
-        new ThrowableObkject()
+        new ThrowableObject()
     ];
+    collectedCoins = 0;
+    collectedBottles = 0;
+    smallCoin = new SmallCoin();
+    smallBottle = new SmallBottle();
     
 
 
@@ -19,6 +23,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        
     }
 
     setWorld() {
@@ -30,12 +35,13 @@ class World {
             this.checkCollisions();
             this.checkThrowObjects();
             this.checkCollectCoin();
+            this.checkCollectBottle();
         }, 200);
     }
 
     checkThrowObjects(){
         if (this.keyboard.D) {
-            let bottle = new ThrowableObkject(this.character.x + 100, this.character.y + 100);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
     }
@@ -53,14 +59,30 @@ class World {
     checkCollectCoin(){
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {
-                console.log('Treffer', index); 
+                console.log('Treffer Coin', index); 
                 this.removeCoinFromMap(index);
+                this.collectedCoins++;
+            }
+        });
+    }
+
+    
+    checkCollectBottle(){
+        this.level.salsabottles.forEach((bottle, index) => {
+            if (this.character.isColliding(bottle, index)) {
+                console.log('Treffer Salsa', index); 
+                this.removeBottleFromMap(index);
+                this.collectedBottles++;
             }
         });
     }
 
     removeCoinFromMap(i){
-        this.level.coins.splice(i);
+        this.level.coins.splice(i, 1);
+    }
+
+    removeBottleFromMap(i){
+        this.level.salsabottles.splice(i, 1);
     }
 
     draw() {
@@ -72,6 +94,8 @@ class World {
 
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
+        this.addToMap(this.smallCoin);
+        this.addToMap(this.smallBottle);
         this.ctx.translate(this.camera_x, 0);
 
         this.addToMap(this.character);
@@ -81,7 +105,8 @@ class World {
         this.addObjectsToMap(this.level.coins);
         this.addObjectsToMap(this.level.salsabottles);
         
-
+        this.drawAmountOfCollectedObjects();
+        
         this.ctx.translate(-this.camera_x, 0);
 
         //draw wird immer wieder aufgerufen
@@ -89,6 +114,13 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         });
+    }
+
+    drawAmountOfCollectedObjects(){
+        this.ctx.font = '30px Serif';
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillText(('= ' + this.collectedCoins), 10 + this.character.x, 92); //number of Coins
+        this.ctx.fillText(('= ' + this.collectedBottles), 100 + this.character.x, 92); //number of Bottles
     }
 
     addObjectsToMap(objects) {
