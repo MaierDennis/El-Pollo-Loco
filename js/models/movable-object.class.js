@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     acceleration = 2.5; //Wert für Beschleunigung
     energy = 100;
     lastHit = 0;
+    
 
 
     applyGravity() {
@@ -13,6 +14,9 @@ class MovableObject extends DrawableObject {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
+            }
+            else if (!this.isAboveGround()){
+                this.speedY = 0
             }
         }, 1000 / 25);
     }
@@ -74,10 +78,15 @@ class MovableObject extends DrawableObject {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; //Difference in s
         return timepassed < 1;
-    }
+    } 
 
     isDead() {
         return this.energy == 0;
+    }
+
+    kill() {
+        this.isDead = true;
+        this.speed = 0;
     }
 
     playAnimation(images) {

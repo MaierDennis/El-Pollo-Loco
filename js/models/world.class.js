@@ -14,6 +14,7 @@ class World {
     smallCoin = new SmallCoin();
     smallBottle = new SmallBottle();
     
+    
 
 
     constructor(canvas, keyboard) {
@@ -34,22 +35,35 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
+        }, 100);
+        setInterval(() => {
             this.checkCollectCoin();
             this.checkCollectBottle();
-        }, 200);
+            this.checkChickenDead();
+        }, 20);
     }
 
     checkThrowObjects(){
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-            this.throwableObjects.push(bottle);
-        }
+            if (this.keyboard.D && this.collectedBottles > 0 && this.character.otherDirection == false) {
+                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+                this.throwableObjects.push(bottle);
+                this.collectedBottles -= 1;
+            } 
     }
 
     checkCollisions(){
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && this.character.speedY >= 0 && !enemy.isDead) {
              this.character.hit();
+             this.statusBar.setPercentage(this.character.energy);
+             console.log('Collision with character, energy ', this.character.energy)
+            }
+         });
+         this.level.endboss.forEach((endboss) => {
+            if (this.character.isColliding(endboss)) {
+             this.character.hit();
+             endboss.isAngry = true;
+             console.log(endboss.isAngry)
              this.statusBar.setPercentage(this.character.energy);
              console.log('Collision with character, energy ', this.character.energy)
             }
@@ -77,6 +91,24 @@ class World {
         });
     }
 
+    checkChickenDead(){
+        this.level.enemies.forEach((enemy, index) => {
+            if (!enemy.isDead && this.character.isColliding(enemy) && this.character.speedY < 0) {
+                enemy.kill(index);
+                
+                this.removeDeadChicken(index);   
+             console.log('Chicken Dead')
+            }
+         });
+    }
+
+    removeDeadChicken(index){
+        setTimeout(() => {
+            this.level.enemies.splice(index, 1);
+        }, 200);
+        
+    }
+
     removeCoinFromMap(i){
         this.level.coins.splice(i, 1);
     }
@@ -92,18 +124,19 @@ class World {
 
         this.addObjectsToMap(this.level.backgroundObjects)
 
+        this.addToMap(this.character);
+        this.addObjectsToMap(this.level.clouds);
+        this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.endboss);
+        this.addObjectsToMap(this.throwableObjects);
+        this.addObjectsToMap(this.level.coins);
+        this.addObjectsToMap(this.level.salsabottles);
+
         this.ctx.translate(-this.camera_x, 0);
         this.addToMap(this.statusBar);
         this.addToMap(this.smallCoin);
         this.addToMap(this.smallBottle);
         this.ctx.translate(this.camera_x, 0);
-
-        this.addToMap(this.character);
-        this.addObjectsToMap(this.level.clouds);
-        this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.throwableObjects);
-        this.addObjectsToMap(this.level.coins);
-        this.addObjectsToMap(this.level.salsabottles);
         
         this.drawAmountOfCollectedObjects();
         

@@ -10,6 +10,7 @@ class Character extends MovableObject {
         right: 40
     }
 
+
     IMAGES_STAND = [
         'assets/img/2_character_pepe/1_idle/idle/I-1.png',
         'assets/img/2_character_pepe/1_idle/idle/I-2.png',
