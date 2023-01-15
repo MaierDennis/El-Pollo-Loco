@@ -1,7 +1,8 @@
 class World {
     character = new Character();
-    endboss = new Endboss();
+    
     level = level1;
+    endboss = this.level.endboss[0];
     canvas;
     ctx;
     keyboard;
@@ -15,7 +16,7 @@ class World {
     smallCoin = new SmallCoin();
     smallBottle = new SmallBottle();
     hitOneTime = false;
-    hitEndboss = 0;
+    
 
 
 
@@ -35,11 +36,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
-            this.checkHitEndboss();
-            this.hittedEndboss();
-        }, 80);
-
+       
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
@@ -49,6 +46,7 @@ class World {
             this.checkCollectCoin();
             this.checkCollectBottle();
             this.checkChickenDead();
+            this.checkBottleHitEndboss();
         }, 20);
     }
 
@@ -100,23 +98,18 @@ class World {
         });
     }
 
-    checkHitEndboss() {
+    checkBottleHitEndboss() {
         this.throwableObjects.forEach((bottle) => {
             if (this.endboss.isColliding(bottle) && this.hitOneTime  == false) {
                 this.hitOneTime = true;
-                console.log('Treffer Endboss');
-                this.hitEndboss++;
+                this.endboss.energy -= 10;
+                this.bottleHittedEndboss = true;
+                console.log('Bottle hitted endboss ' + this.bottleHittedEndboss);
                 setTimeout(() => {
                     this.hitOneTime = false;
                 }, 1000);
             }
         });
-    }
-
-    hittedEndboss(){
-        if (this.hitEndboss >= 5){
-            this.endboss.endbossDead = true;
-        }
     }
 
     checkChickenDead() {
