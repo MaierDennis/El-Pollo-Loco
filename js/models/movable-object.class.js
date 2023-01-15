@@ -30,7 +30,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
     isColliding(object) {
         return this.rightBorder() > this.leftObjectBorder(object) &&
             this.bottomBorder() > this.topObjectBorder(object) &&

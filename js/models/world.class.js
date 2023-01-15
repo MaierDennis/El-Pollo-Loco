@@ -1,5 +1,6 @@
 class World {
     character = new Character();
+    endboss = new Endboss();
     level = level1;
     canvas;
     ctx;
@@ -13,8 +14,10 @@ class World {
     collectedBottles = 0;
     smallCoin = new SmallCoin();
     smallBottle = new SmallBottle();
-    
-    
+    hitOneTime = false;
+    hitEndboss = 0;
+
+
 
 
     constructor(canvas, keyboard) {
@@ -24,18 +27,24 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        
+
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    run(){
+    run() {
+        setInterval(() => {
+            this.checkHitEndboss();
+            this.hittedEndboss();
+        }, 80);
+
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObjects();
-        }, 100);
+        }, 200);
+
         setInterval(() => {
             this.checkCollectCoin();
             this.checkCollectBottle();
@@ -43,77 +52,97 @@ class World {
         }, 20);
     }
 
-    checkThrowObjects(){
-            if (this.keyboard.D && this.collectedBottles > 0 && this.character.otherDirection == false) {
-                let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-                this.throwableObjects.push(bottle);
-                this.collectedBottles -= 1;
-            } 
+    checkThrowObjects() {
+        if (this.keyboard.D && this.collectedBottles > 0 && this.character.otherDirection == false) {
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+            this.throwableObjects.push(bottle);
+            this.collectedBottles -= 1;
+        }
     }
 
-    checkCollisions(){
+    checkCollisions() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy) && this.character.speedY >= 0 && !enemy.isDead) {
-             this.character.hit();
-             this.statusBar.setPercentage(this.character.energy);
-             console.log('Collision with character, energy ', this.character.energy)
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+                console.log('Collision with character, energy ', this.character.energy);
             }
-         });
-         this.level.endboss.forEach((endboss) => {
+        });
+
+        this.level.endboss.forEach((endboss) => {
             if (this.character.isColliding(endboss)) {
-             this.character.hit();
-             endboss.isAngry = true;
-             console.log(endboss.isAngry)
-             this.statusBar.setPercentage(this.character.energy);
-             console.log('Collision with character, energy ', this.character.energy)
+                this.character.hit();
+                endboss.isAngry = true;
+                console.log(endboss.isAngry);
+                this.statusBar.setPercentage(this.character.energy);
+                console.log('Collision with character, energy ', this.character.energy);
             }
-         });
+        });
     }
 
-    checkCollectCoin(){
+    checkCollectCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {
-                console.log('Treffer Coin', index); 
+                console.log('Treffer Coin', index);
                 this.removeCoinFromMap(index);
                 this.collectedCoins++;
             }
         });
     }
 
-    
-    checkCollectBottle(){
+    checkCollectBottle() {
         this.level.salsabottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index)) {
-                console.log('Treffer Salsa', index); 
+                console.log('Treffer Salsa', index);
                 this.removeBottleFromMap(index);
                 this.collectedBottles++;
             }
         });
     }
 
-    checkChickenDead(){
-        this.level.enemies.forEach((enemy, index) => {
-            if (!enemy.isDead && this.character.isColliding(enemy) && this.character.speedY < 0) {
-                enemy.kill(index);
-                
-                this.removeDeadChicken(index);   
-             console.log('Chicken Dead')
+    checkHitEndboss() {
+        this.throwableObjects.forEach((bottle) => {
+            if (this.endboss.isColliding(bottle) && this.hitOneTime  == false) {
+                this.hitOneTime = true;
+                console.log('Treffer Endboss');
+                this.hitEndboss++;
+                setTimeout(() => {
+                    this.hitOneTime = false;
+                }, 1000);
             }
-         });
+        });
     }
 
-    removeDeadChicken(index){
+    hittedEndboss(){
+        if (this.hitEndboss >= 5){
+            this.endboss.endbossDead = true;
+        }
+    }
+
+    checkChickenDead() {
+        this.level.enemies.forEach((enemy) => {
+
+            if (!enemy.isDead && this.character.isColliding(enemy) && this.character.speedY < 0) {
+                enemy.kill();
+                this.removeDeadChicken(enemy);
+                this.character.jump();
+                console.log('Chicken Dead')
+            }
+        });
+    }
+
+    removeDeadChicken(enemy) {
         setTimeout(() => {
+            let index = this.level.enemies.indexOf(enemy);
             this.level.enemies.splice(index, 1);
-        }, 200);
-        
+        }, 1000);
     }
 
-    removeCoinFromMap(i){
+    removeCoinFromMap(i) {
         this.level.coins.splice(i, 1);
     }
 
-    removeBottleFromMap(i){
+    removeBottleFromMap(i) {
         this.level.salsabottles.splice(i, 1);
     }
 
@@ -137,9 +166,9 @@ class World {
         this.addToMap(this.smallCoin);
         this.addToMap(this.smallBottle);
         this.ctx.translate(this.camera_x, 0);
-        
+
         this.drawAmountOfCollectedObjects();
-        
+
         this.ctx.translate(-this.camera_x, 0);
 
         //draw wird immer wieder aufgerufen
@@ -149,7 +178,7 @@ class World {
         });
     }
 
-    drawAmountOfCollectedObjects(){
+    drawAmountOfCollectedObjects() {
         this.ctx.font = '30px Serif';
         this.ctx.fillStyle = 'white';
         this.ctx.fillText(('= ' + this.collectedCoins), 10 + this.character.x, 92); //number of Coins
@@ -172,7 +201,7 @@ class World {
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
-            
+
         }
     }
 
@@ -183,7 +212,7 @@ class World {
         mo.x = mo.x * -1;
     }
 
-    flipImageBack(mo){
+    flipImageBack(mo) {
         mo.x = mo.x * -1;
         this.ctx.restore();
     }
