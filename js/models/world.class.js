@@ -68,7 +68,7 @@ class World {
         });
 
         this.level.endboss.forEach((endboss) => {
-            if (this.character.isColliding(endboss)) {
+            if (this.character.isColliding(endboss) && this.endboss.energy > 0) {
                 this.character.hit();
                 endboss.isAngry = true;
                 console.log(endboss.isAngry);
