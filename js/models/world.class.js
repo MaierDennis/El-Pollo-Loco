@@ -18,9 +18,6 @@ class World {
     hitOneTime = false;
     
 
-
-
-
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
@@ -47,6 +44,7 @@ class World {
             this.checkCollectBottle();
             this.checkChickenDead();
             this.checkBottleHitEndboss();
+            this.checkPositionForEndboss();
         }, 20);
     }
 
@@ -140,6 +138,14 @@ class World {
 
     removeBottleFromMap(i) {
         this.level.salsabottles.splice(i, 1);
+    }
+
+    checkPositionForEndboss(){
+        setInterval(() => {
+            if (this.character.x > 3000) {
+                this.level.endboss[0].firstContactEndboss = true;
+            }
+        }, 200);
     }
 
     draw() {

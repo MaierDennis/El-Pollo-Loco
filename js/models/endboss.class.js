@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     speed = 1;
     isAngry = false;
     endbossDead = false;
+    firstContactEndboss = false;
 
     IMAGES_WALKING = [
         'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -48,22 +49,26 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_ANGRY);
         this.loadImages(this.IMAGES_DEAD);
-
-
         this.x = 3700;
-        this.moveToLeft();
         this.animate();
+        
         
     }
 
-    moveToLeft(){
+    startEndboss(){
         setInterval(() => {
-            this.moveLeft();
+            if (this.firstContactEndboss) {
+                this.moveToLeft();
+            }
         }, 20);
     }
 
+    moveToLeft(){
+            this.moveLeft();
+    }
+
     animate() {
-        
+        this.startEndboss();
 
         let IDOfInterval = setInterval(() => {
             if (this.energy == 100) {

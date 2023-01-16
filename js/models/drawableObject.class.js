@@ -33,7 +33,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character) {
+        /*if (this instanceof Character) {
             ctx.beginPath();
             ctx.lineWidth = '5';
             ctx.strokeStyle = "blue";
@@ -70,6 +70,6 @@ class DrawableObject {
             ctx.strokeStyle = "blue";
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
-        }
+        }*/
     }
 }
