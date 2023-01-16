@@ -99,15 +99,18 @@ class World {
     }
 
     checkBottleHitEndboss() {
-        this.throwableObjects.forEach((bottle) => {
+        this.throwableObjects.forEach((bottle, index) => {
             if (this.endboss.isColliding(bottle) && this.hitOneTime  == false) {
                 this.hitOneTime = true;
                 this.endboss.energy -= 10;
-                this.bottleHittedEndboss = true;
-                console.log('Bottle hitted endboss ' + this.bottleHittedEndboss);
+                this.throwableObjects[index].bottleHittedEndboss = true;
+                setTimeout(() => {
+                    this.throwableObjects.splice(index, 1);
+                }, 200);
+                console.log('Bottle hitted endboss ' + this.throwableObjects[index].bottleHittedEndboss);
                 setTimeout(() => {
                     this.hitOneTime = false;
-                }, 1000);
+                }, 200);
             }
         });
     }
