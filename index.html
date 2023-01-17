@@ -31,18 +31,30 @@
 </head>
 
 <body>
+
     <div id="game">
         <h1 id="headline">El Pollo Loco</h1>
         <div id="fullscreen">
             <canvas id="canvas" width="740" height="480"></canvas>
-            <div id="fullScreenImageDiv" class="fullScreenImage"><img id="fullScreenImage" src="assets/img/fullscreen.png" alt="" onclick="fullScreen()"></div>
+            <div id="fullScreenImageDiv" class="fullScreenImage"><img id="fullScreenImage"
+                    src="assets/img/fullscreen.png" alt="" onclick="fullScreen()"></div>
+            <div class="sound">
+                <img src="assets/img/speaker.png" alt="">
+            </div>
         </div>
-        
+
     </div>
 
-    <div id="startScreen" class="startscreen">
-        <img src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="">
-        <button onclick="init()">Start</button>
+    <div id="startScreen">
+        <div class="startscreen">
+            <div class="welcomePicture">
+                <!-- <img src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="">-->
+                <button onclick="init()">Start</button>
+                <div class="soundStart">
+                    <img src="assets/img/speaker.png">
+                </div>
+            </div>
+        </div>
     </div>
 
     <div id="endScreen" class="endscreen" style="display: none;">

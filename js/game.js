@@ -39,7 +39,7 @@ function exitFullscreen() {
     document.getElementById('canvas').style.height = '480px';
     document.getElementById('canvas').style.width = '720px';
     document.getElementById('fullScreenImage').src = 'assets/img/fullscreen.png';
-    document.getElementById('fullScreenImageDiv').style.top = '160px';
+    document.getElementById('fullScreenImageDiv').style.top = '200px';
     document.getElementById('fullScreenImage').onclick = fullScreen;
   }
   

@@ -1,6 +1,6 @@
 class Chicken extends MovableObject {
 
-
+    
     height = 60;
     width = 80;
     y = 370;
@@ -34,7 +34,6 @@ class Chicken extends MovableObject {
     }
 
     animateChickenDeadOrWalking(){
-
         setInterval(() => {
         if (this.isDead) {
             this.playAnimation(this.IMAGE_DEATH);

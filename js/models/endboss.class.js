@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     speed = 1;
     isAngry = false;
     firstContactEndboss = false;
+    world;
 
     IMAGES_WALKING = [
         'assets/img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -41,6 +42,8 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
+    
+
     constructor() {
         super().loadImage(this.IMAGES_STANDING[0]);
 
@@ -73,17 +76,17 @@ class Endboss extends MovableObject {
             if (this.energy == 100) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            else if ((this.energy < 100 && this.energy >= 0) || this.isAngry) {
+            else if (this.energy < 100 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_ANGRY);
             }
             else if (this.energy <= 0) {
                 this.playAnimation(this.IMAGES_DEAD);
                 console.log('Endboss dead');
                 this.speed = 0;
-                this.world.gameOver = true;
                 setTimeout(() => {
+                    this.world.gameOver = true;
                     clearInterval(IDOfInterval);
-                }, 5000);
+                }, 2000);
                 
             }
         }, 150);

@@ -30,6 +30,17 @@ canvas {
     display: block;
 }
 
+.sound {
+    position: absolute;
+    top: 160px;
+    right: 20px;
+}
+
+.sound img {
+    height: 30px;
+}
+
+
 #game {
     position: relative;
     display: none;
@@ -41,7 +52,7 @@ canvas {
 
 .fullScreenImage {
     position: absolute;
-    top: 160px;
+    top: 200px;
     right: 20px;
 }
 
@@ -64,7 +75,6 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .startscreen img {
@@ -73,6 +83,49 @@ canvas {
     border-radius: 20px;
     margin-bottom: 50px;
 }
+
+.welcomePicture {
+    background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 500px;
+    width: 820px;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end
+}
+
+.welcomePicture button {
+    position: absolute;
+    height: 50px;
+    width: 150px;
+    background-color: rgb(255, 177, 31);
+    color: black;
+    border: 0;
+    font-size: 40px;
+    font-family: 'zabras';
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.welcomePicture button:hover {
+    cursor: pointer;
+}
+
+.soundStart {
+    position: relative;
+    bottom: 400px;
+    left: 375px;
+}
+
+.soundStart img {
+    height: 30px !important;
+    width: 30px !important;
+}
+
 .endscreen {
     position: fixed;
     top: 0;
@@ -86,23 +139,6 @@ canvas {
     align-items: center;
     z-index: 1;
 }
-
-    .startscreen button {
-        position: absolute;
-        margin-top: 360px;
-        height: 50px;
-        width: 150px;
-        background-color: rgb(255, 177, 31);
-        color: black;
-        border: 0;
-        font-size: 40px;
-        font-family: 'zabras';
-        border-radius: 10px;
-    }
-
-    .startscreen button:hover {
-        cursor: pointer;
-    }
 
 .endscreen img {
     height: 100vh;
