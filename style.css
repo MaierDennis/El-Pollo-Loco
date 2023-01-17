@@ -31,11 +31,26 @@ canvas {
 }
 
 #game {
+    position: relative;
     display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-bottom: 150px;
+}
+
+.fullScreenImage {
+    position: absolute;
+    top: 160px;
+    right: 20px;
+}
+
+.fullScreenImage img {
+    height: 30px;
+}
+
+.fullScreenImage img:hover {
+    cursor: pointer;
 }
 
 .startscreen {
@@ -70,8 +85,24 @@ canvas {
     justify-content: center;
     align-items: center;
     z-index: 1;
-    
 }
+
+    .startscreen button {
+        position: absolute;
+        margin-top: 360px;
+        height: 50px;
+        width: 150px;
+        background-color: rgb(255, 177, 31);
+        color: black;
+        border: 0;
+        font-size: 40px;
+        font-family: 'zabras';
+        border-radius: 10px;
+    }
+
+    .startscreen button:hover {
+        cursor: pointer;
+    }
 
 .endscreen img {
     height: 100vh;

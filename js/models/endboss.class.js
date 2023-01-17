@@ -4,7 +4,6 @@ class Endboss extends MovableObject {
     y = 60;
     speed = 1;
     isAngry = false;
-    endbossDead = false;
     firstContactEndboss = false;
 
     IMAGES_WALKING = [
@@ -74,7 +73,7 @@ class Endboss extends MovableObject {
             if (this.energy == 100) {
                 this.playAnimation(this.IMAGES_WALKING);
             }
-            else if (this.energy < 100 && this.energy >= 0) {
+            else if ((this.energy < 100 && this.energy >= 0) || this.isAngry) {
                 this.playAnimation(this.IMAGES_ANGRY);
             }
             else if (this.energy <= 0) {

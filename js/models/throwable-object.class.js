@@ -42,11 +42,9 @@ class ThrowableObject extends MovableObject {
     animate(){
         let IDOfBottleInterval = setInterval(() => {
             if(this.bottleHittedEndboss){
-               //clearInterval(IDOfInterval);
                console.log('Animation fertig'); 
                this.playAnimation(this.IMAGES_BOTTLESPLASH);
                 clearInterval(IDOfBottleInterval);
-                
             }
 
             else if (!this.bottleHittedEndboss){
