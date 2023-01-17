@@ -3,13 +3,22 @@ let world;
 let keyboard = new Keyboard();
 
 function init(){
-    document.getElementById('game').classList.remove('d-none');
-    document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('game').style.display = "flex";
+    document.getElementById('startScreen').style.display = "none";
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-
     console.log('My Character is', world.character);
 }
+
+/*function gameOver(){
+    setInterval(() => {
+        if (world.gameOver) {
+            document.getElementById('endScreen').classList.remove('d-none');
+            console.log('Game Over');
+                } 
+    }, 200);
+    
+}*/
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 39) {

@@ -81,9 +81,11 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
                 console.log('Endboss dead');
                 this.speed = 0;
+                this.world.gameOver = true;
                 setTimeout(() => {
                     clearInterval(IDOfInterval);
                 }, 5000);
+                
             }
         }, 150);
     }

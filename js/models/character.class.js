@@ -107,6 +107,7 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     clearInterval(interval);
                 }, 300);
+                this.world.gameOver = true;
             }
 
             else if (this.isHurt()) {

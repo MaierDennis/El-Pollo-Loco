@@ -16,6 +16,7 @@ class World {
     smallCoin = new SmallCoin();
     smallBottle = new SmallBottle();
     hitOneTime = false;
+    gameOver = false;
     
 
     constructor(canvas, keyboard) {
@@ -25,11 +26,21 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
+        this.gameIsOver()
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+    gameIsOver(){
+        setInterval(() => {
+            
+            if (this.gameOver) {
+                console.log('GameOver')
+                document.getElementById('endScreen').style.display = "flex";
+            }
+        }, 200);
     }
 
     run() {
