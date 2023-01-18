@@ -42,7 +42,7 @@ class Endboss extends MovableObject {
         'assets/img/4_enemie_boss_chicken/5_dead/G26.png'
     ];
 
-    
+    win_sound = new Audio('assets/audio/audio_win.mp3');
 
     constructor() {
         super().loadImage(this.IMAGES_STANDING[0]);
@@ -78,11 +78,13 @@ class Endboss extends MovableObject {
             }
             else if (this.energy < 100 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_ANGRY);
+                this.speed = 5;
             }
             else if (this.energy <= 0) {
                 this.playAnimation(this.IMAGES_DEAD);
-                console.log('Endboss dead');
+                //console.log('Endboss dead');
                 this.speed = 0;
+                this.playWinSound();
                 setTimeout(() => {
                     this.world.gameOver = true;
                     clearInterval(IDOfInterval);
@@ -90,5 +92,11 @@ class Endboss extends MovableObject {
                 
             }
         }, 150);
+    }
+
+    playWinSound(){
+        if (this.world.soundOn) {
+            this.win_sound.play();
+        }
     }
 }

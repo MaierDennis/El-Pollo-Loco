@@ -31,15 +31,26 @@
 </head>
 
 <body>
-
     <div id="game">
-        <h1 id="headline">El Pollo Loco</h1>
-        <div id="fullscreen">
-            <canvas id="canvas" width="740" height="480"></canvas>
-            <div id="fullScreenImageDiv" class="fullScreenImage"><img id="fullScreenImage"
-                    src="assets/img/fullscreen.png" alt="" onclick="fullScreen()"></div>
-            <div class="sound">
-                <img src="assets/img/speaker.png" alt="">
+        <div id="fullscreen" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="canvas-div">
+                <canvas id="canvas" width="740" height="480"></canvas>
+                <div id="soundStartOn" class="sound" onclick="soundOff()">
+                    <img src="assets/img/speaker.png" alt="">
+                </div>
+                <div id="soundStartOff" class="sound" style="z-index: 1;" onclick="soundOn()">
+                    <img src="assets/img/line.png" alt="">
+                </div>
+                <div class="play-buttons">
+                    <div class="moving-buttons">
+                        <div id="btnLeft" class="arrow-left"><img src="assets/img/arrow-left.png" alt=""></div>
+                        <div id="btnRight" class="arrow-right"><img src="assets/img/arrow-right.png" alt=""></div>
+                    </div>
+                    <div class="action-buttons">
+                        <div id="btnUp" class="arrow-up"><img src="assets/img/arrow-up.png" alt=""></div>
+                        <div id="btnD" class="letter-d"><img src="assets/img/letter-d.png" alt=""></div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -47,11 +58,32 @@
 
     <div id="startScreen">
         <div class="startscreen">
-            <div class="welcomePicture">
-                <!-- <img src="assets/img/9_intro_outro_screens/start/startscreen_1.png" alt="">-->
+            <div class="welcomePicture" style="margin-top: 100px;">
                 <button onclick="init()">Start</button>
-                <div class="soundStart">
+                <div id="soundOn" class="soundStart" onclick="soundOff()">
                     <img src="assets/img/speaker.png">
+                </div>
+                <div id="soundOff" class="soundStart" style="z-index: 1;" onclick="soundOn()">
+                    <img src="assets/img/line.png">
+                </div>
+            </div>
+            <div class="explanation">
+                <div class="keys">
+                    <div class="buttons"><img src="assets/img/arrow-left.png" alt="">
+                        <h2>= Left</h2>
+                    </div>
+                    <div class="buttons"><img src="assets/img/arrow-right.png" alt="">
+                        <h2>= Right</h2>
+                    </div>
+                    <div class="buttons"><img src="assets/img/arrow-up.png" alt="">
+                        <h2>= Jump</h2>
+                    </div>
+                    <div class="buttons"><img src="assets/img/space.png" alt="">
+                        <h2>= Jump</h2>
+                    </div>
+                    <div class="buttons"><img src="assets/img/letter-d.png" alt="" style="margin: 50px;">
+                        <h2>= Throw</h2>
+                    </div>
                 </div>
             </div>
         </div>

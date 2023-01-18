@@ -1,13 +1,39 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let soundIsOn = false;
+
+let start_sound = new Audio('assets/audio/audio_start.mp3');
 
 function init() {
     document.getElementById('game').style.display = "flex";
     document.getElementById('startScreen').style.display = "none";
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    console.log('My Character is', world.character);
+    playSound();
+    //checkOnTouch();
+    
+    //console.log('My Character is', world.character);
+}
+
+function playSound(){
+    if (soundIsOn) {
+        start_sound.play();
+    }
+}
+
+function soundOn(){
+    document.getElementById('soundOff').style.display = 'none';
+    document.getElementById('soundStartOff').style.display = 'none';
+    soundIsOn = true;
+    world.soundOn = true;
+}
+
+function soundOff(){
+    document.getElementById('soundOff').style.display = 'block';
+    document.getElementById('soundStartOff').style.display = 'block';
+    soundIsOn = false;
+    world.soundOn = false;
 }
 
 function fullScreen(){
@@ -18,6 +44,7 @@ function fullScreen(){
     document.getElementById('fullScreenImage').src = "assets/img/fullscreen-exit.png"
     document.getElementById('fullScreenImageDiv').style.top = '20px';
     document.getElementById('fullScreenImage').onclick = exitFullscreen;
+    document.getElementById('keys').style.display = 'none';
 }
 
 function enterFullscreen(element) {
@@ -41,8 +68,56 @@ function exitFullscreen() {
     document.getElementById('fullScreenImage').src = 'assets/img/fullscreen.png';
     document.getElementById('fullScreenImageDiv').style.top = '200px';
     document.getElementById('fullScreenImage').onclick = fullScreen;
+    document.getElementById('keys').style.display = 'flex';
   }
-  
+ 
+  function checkOnTouch(){
+    setInterval(() => {
+        bindBtnPressEvents();
+    }, 10);
+  }
+
+  function bindBtnPressEvents(){
+    document.getElementById('btnRight').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.RIGHT = true;
+    });
+
+    document.getElementById('btnRight').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        world.keyboard.RIGHT = false;
+    });
+
+    document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = true;
+    });
+    
+    document.getElementById('btnLeft').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.LEFT = false;
+    });
+
+    document.getElementById('btnUp').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.UP = true;
+    });
+    
+    document.getElementById('btnUP').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.UP = false;
+    });
+
+    document.getElementById('btnD').addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        keyboard.D = true;
+    });
+    
+    document.getElementById('btnD').addEventListener('touchend', (e) => {
+        e.preventDefault();
+        keyboard.D = false;
+    });
+  }
 
 window.addEventListener('keydown', (e) => {
     if (e.keyCode == 39) {

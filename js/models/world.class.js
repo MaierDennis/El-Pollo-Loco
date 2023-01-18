@@ -17,6 +17,11 @@ class World {
     smallBottle = new SmallBottle();
     hitOneTime = false;
     gameOver = false;
+    soundOn = false;
+
+    collect_sound = new Audio('assets/audio/audio_collect.mp3');
+    dead_chicken = new Audio('assets/audio/audio_chicken.mp3');
+    splashed_bottle = new Audio('assets/audio/audio_glass.mp3');
     
 
     constructor(canvas, keyboard) {
@@ -26,19 +31,27 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.gameIsOver()
+        this.gameIsOver();
+        this.checkSOundOn();
     }
+
 
     setWorld() {
         this.character.world = this;
         this.endboss.world = this;
     }
 
+    checkSOundOn(){
+        if(soundIsOn){
+            this.soundOn = true;
+        }
+    }
+
     gameIsOver(){
         setInterval(() => {
             
             if (this.gameOver) {
-                console.log('GameOver')
+                //console.log('GameOver')
                 document.getElementById('endScreen').style.display = "flex";
             }
         }, 200);
@@ -73,7 +86,7 @@ class World {
             if (this.character.isColliding(enemy) && this.character.speedY >= 0 && !enemy.isDead) {
                 this.character.hit();
                 this.statusBar.setPercentage(this.character.energy);
-                console.log('Collision with character, energy ', this.character.energy);
+                //console.log('Collision with character, energy ', this.character.energy);
             }
         });
 
@@ -83,7 +96,7 @@ class World {
                 endboss.isAngry = true;
                 console.log(endboss.isAngry);
                 this.statusBar.setPercentage(this.character.energy);
-                console.log('Collision with character, energy ', this.character.energy);
+                //console.log('Collision with character, energy ', this.character.energy);
             }
         });
     }
@@ -91,8 +104,9 @@ class World {
     checkCollectCoin() {
         this.level.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin, index)) {
-                console.log('Treffer Coin', index);
+                //console.log('Treffer Coin', index);
                 this.removeCoinFromMap(index);
+                this.playCollectSound();
                 this.collectedCoins++;
             }
         });
@@ -101,11 +115,18 @@ class World {
     checkCollectBottle() {
         this.level.salsabottles.forEach((bottle, index) => {
             if (this.character.isColliding(bottle, index)) {
-                console.log('Treffer Salsa', index);
+                //console.log('Treffer Salsa', index);
                 this.removeBottleFromMap(index);
+                this.playCollectSound();
                 this.collectedBottles++;
             }
         });
+    }
+
+    playCollectSound(){
+        if (this.soundOn) {
+            this.collect_sound.play();
+        }
     }
 
     checkBottleHitEndboss() {
@@ -114,10 +135,11 @@ class World {
                 this.hitOneTime = true;
                 this.endboss.energy -= 10;
                 this.throwableObjects[index].bottleHittedEndboss = true;
+                this.playSplashBottle();
                 setTimeout(() => {
                     this.throwableObjects.splice(index, 1);
                 }, 200);
-                console.log('Bottle hitted endboss ' + this.throwableObjects[index].bottleHittedEndboss);
+                //console.log('Bottle hitted endboss ' + this.throwableObjects[index].bottleHittedEndboss);
                 setTimeout(() => {
                     this.hitOneTime = false;
                 }, 200);
@@ -125,16 +147,29 @@ class World {
         });
     }
 
+    playSplashBottle(){
+        if (this.soundOn) {
+            this.splashed_bottle.play();
+        }
+    }
+
     checkChickenDead() {
         this.level.enemies.forEach((enemy) => {
 
             if (!enemy.isDead && this.character.isColliding(enemy) && this.character.speedY < 0) {
                 enemy.kill();
+                this.playChickenDead();
                 this.removeDeadChicken(enemy);
                 this.character.jump();
-                console.log('Chicken Dead')
+                //console.log('Chicken Dead')
             }
         });
+    }
+
+    playChickenDead(){
+        if (this.soundOn) {
+            this.dead_chicken.play();
+        }
     }
 
     removeDeadChicken(enemy) {
@@ -193,8 +228,8 @@ class World {
     }
 
     drawAmountOfCollectedObjects() {
-        this.ctx.font = '30px Serif';
-        this.ctx.fillStyle = 'white';
+        this.ctx.font = '35px Zabras';
+        this.ctx.fillStyle = 'black';
         this.ctx.fillText(('= ' + this.collectedCoins), 10 + this.character.x, 92); //number of Coins
         this.ctx.fillText(('= ' + this.collectedBottles), 100 + this.character.x, 92); //number of Bottles
     }

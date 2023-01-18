@@ -12,6 +12,7 @@ class Chicken extends MovableObject {
     IMAGE_DEATH = [
         'assets/img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
     ];
+
     isDead = false;
 
     constructor(){

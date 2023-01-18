@@ -32,7 +32,7 @@ canvas {
 
 .sound {
     position: absolute;
-    top: 160px;
+    top: 20px;
     right: 20px;
 }
 
@@ -47,21 +47,6 @@ canvas {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 150px;
-}
-
-.fullScreenImage {
-    position: absolute;
-    top: 200px;
-    right: 20px;
-}
-
-.fullScreenImage img {
-    height: 30px;
-}
-
-.fullScreenImage img:hover {
-    cursor: pointer;
 }
 
 .startscreen {
@@ -75,16 +60,17 @@ canvas {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .startscreen img {
     height: 480px;
     width: 720px;
     border-radius: 20px;
-    margin-bottom: 50px;
 }
 
 .welcomePicture {
+    position: relative;
     background-image: url('assets/img/9_intro_outro_screens/start/startscreen_1.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -92,7 +78,6 @@ canvas {
     height: 500px;
     width: 820px;
     border-radius: 20px;
-
     display: flex;
     justify-content: center;
     align-items: flex-end
@@ -115,15 +100,136 @@ canvas {
     cursor: pointer;
 }
 
+.explanation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .soundStart {
-    position: relative;
-    bottom: 400px;
-    left: 375px;
+    position: absolute;
+    bottom: 430px;
+    right: 20px;
 }
 
 .soundStart img {
     height: 30px !important;
     width: 30px !important;
+}
+
+.keys {
+    max-width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 40px;
+}
+
+.keys img {
+    height: 50px;
+    width: 50px;
+    margin-left: 40px;
+    margin-right: 10px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+    height: 50px;
+}
+
+.controll-keys {
+    margin-top: 30px;
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controll-keys img {
+    height: 50px;
+    width: 50px;
+}
+
+.controll-keys:hover {
+ cursor: pointer;
+}
+
+.arrow-left {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.arrow-right {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+
+.arrow-up {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+    
+}
+.space {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+   
+}
+
+.letter-d {
+    display: flex;
+    flex-direction: row;
+    font-size: 30px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.canvas-div {
+    position: relative;
+}
+
+.play-buttons {
+    position: absolute;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+}
+
+.play-buttons img {
+    height: 40px;
+}
+
+.moving-buttons {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.action-buttons {
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
 .endscreen {
@@ -143,6 +249,7 @@ canvas {
 .endscreen img {
     height: 100vh;
     width: 100vw;
+    object-fit: cover;
 
     animation: zoomOut;
     animation-duration: 3s;
@@ -163,7 +270,8 @@ canvas {
 
 @media only screen and (max-width: 720px){
     canvas {
-        width: 100%;
+        width: 100vw;
+        height: unset;
     }
 }
 
@@ -175,5 +283,121 @@ canvas {
     
     #headline {
         display: none;
+    }
+    
+}
+
+@media (max-width: 830px){
+    .welcomePicture {
+        height: 364px;
+    width: 600px;
+    }
+
+    .welcomePicture button {
+        height: 40px;
+        width: 130px;
+        font-size: 35px;
+    }
+    
+    .soundStart {
+        bottom: 310px;
+    }
+
+    .keys {
+        max-width: 100%;
+    }
+    
+    .keys img {
+        height: 40px;
+        width: 40px;
+        margin-left: 30px;
+        margin-right: 10px;
+    }
+    
+    .buttons {
+        display: flex;
+        flex-direction: row;
+        font-size: 25px;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .canvas-div {
+        width: 100%;
+        height: unset;
+    }
+}
+
+@media (max-width: 630px){
+    .welcomePicture {
+        height: 330px;
+        width: 100%;
+    }
+
+    .welcomePicture button {
+        height: 30px;
+        width: 110px;
+        font-size: 30px;
+    }
+    
+    .soundStart {
+        bottom: 275px;
+    }
+
+    .play-buttons {
+        position: absolute;
+        bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 30px;
+    }
+    
+    .play-buttons img {
+        height: 30px;
+    }
+
+    .sound {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+    
+    .sound img {
+        height: 20px;
+    }
+
+    .endscreen img {
+        height: 50vh;
+    }
+}
+
+@media (max-width: 470px){
+    .welcomePicture {
+        height: 300px;
+        width: 100%;
+    }
+
+    .welcomePicture button {
+        height: 30px;
+        width: 100px;
+        font-size: 24px;
+    }
+    
+    .soundStart {
+        bottom: 220px;
+    }
+
+    .play-buttons {
+        position: absolute;
+        bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 20px;
+    }
+    
+    .play-buttons img {
+        height: 20px;
     }
 }
