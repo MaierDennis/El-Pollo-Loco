@@ -8,7 +8,11 @@ class MovableObject extends DrawableObject {
     lastHit = 0;
     
     
-    
+    /**
+     * Apply gravity for jumping or throwing objects
+     * 
+     * 
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -21,6 +25,11 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    /**
+     * Check if the object is above the ground
+     * 
+     * 
+     */
     isAboveGround() {
         if (this instanceof ThrowableObject) {
             return true;
@@ -30,6 +39,11 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Check if objects are colliding
+     * 
+     * 
+     */
     isColliding(object) {
         return this.rightBorder() > this.leftObjectBorder(object) &&
             this.bottomBorder() > this.topObjectBorder(object) &&
@@ -61,7 +75,11 @@ class MovableObject extends DrawableObject {
         return object.y + object.height - object.offset.bottom;
     }
 
-
+    /**
+     * Remove energy by hitting and set the time of the last hit
+     * 
+     * 
+     */
     hit() {
         this.energy -= 5;
 
@@ -73,21 +91,41 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    /**
+     * Return if the passed time is under 1s
+     * 
+     * 
+     */
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; // Difference in ms
         timepassed = timepassed / 1000; //Difference in s
         return timepassed < 1;
     } 
 
+    /**
+     * Return if the object is dead
+     * 
+     * 
+     */
     isDead() {
         return this.energy == 0;
     }
 
+    /**
+     * Set variables if Object has been killed
+     * 
+     * 
+     */
     kill() {
         this.isDead = true;
         this.speed = 0;
     }
 
+    /**
+     * Function to play the animation with pictures
+     * 
+     * @param {Array} images - All pictures from the picture-array
+     */
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -95,14 +133,29 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
+    /**
+     * Move the object to the right
+     * 
+     * 
+     */
     moveRight() {
         this.x += this.speed;
     }
 
+    /**
+     * Move the object to the left
+     * 
+     * 
+     */
     moveLeft() {
         this.x -= this.speed;
     }
 
+    /**
+     * Move the object to the top
+     * 
+     * 
+     */
     jump() {
         this.speedY = 30;
     }

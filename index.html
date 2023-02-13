@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Pollo Loco</title>
+    <link rel="shortcut icon" href="assets/img/hen.png">
 
     <link rel="stylesheet" href="style.css">
     <script src="js/models/drawableObject.class.js"></script>
@@ -43,13 +44,33 @@
                 </div>
                 <div class="play-buttons">
                     <div class="moving-buttons">
-                        <div id="btnLeft" class="arrow-left"><img src="assets/img/arrow-left.png" alt=""></div>
-                        <div id="btnRight" class="arrow-right"><img src="assets/img/arrow-right.png" alt=""></div>
+                        <div id="btnLeft" class="arrow-left hover"><img src="assets/img/arrow-left.png" alt=""></div>
+                        <div id="btnRight" class="arrow-right hover"><img src="assets/img/arrow-right.png" alt=""></div>
                     </div>
                     <div class="action-buttons">
-                        <div id="btnUp" class="arrow-up"><img src="assets/img/arrow-up.png" alt=""></div>
-                        <div id="btnD" class="letter-d"><img src="assets/img/letter-d.png" alt=""></div>
+                        <div id="btnUp" class="arrow-up hover"><img src="assets/img/arrow-up.png" alt=""></div>
+                        <div id="btnD" class="letter-d hover"><img src="assets/img/letter-d.png" alt=""></div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation">
+            <div class="keys">
+                <div class="buttons"><img src="assets/img/arrow-left.png" alt="">
+                    <h2>= Left</h2>
+                </div>
+                <div class="buttons"><img src="assets/img/arrow-right.png" alt="">
+                    <h2>= Right</h2>
+                </div>
+                <div class="buttons"><img src="assets/img/arrow-up.png" alt="">
+                    <h2>= Jump</h2>
+                </div>
+                <div class="buttons"><img src="assets/img/space.png" alt="">
+                    <h2>= Jump</h2>
+                </div>
+                <div class="buttons"><img src="assets/img/letter-d.png" alt="">
+                    <h2>= Throw</h2>
                 </div>
             </div>
         </div>
@@ -81,7 +102,7 @@
                     <div class="buttons"><img src="assets/img/space.png" alt="">
                         <h2>= Jump</h2>
                     </div>
-                    <div class="buttons"><img src="assets/img/letter-d.png" alt="" style="margin: 50px;">
+                    <div class="buttons"><img src="assets/img/letter-d.png" alt="">
                         <h2>= Throw</h2>
                     </div>
                 </div>
@@ -91,6 +112,7 @@
 
     <div id="endScreen" class="endscreen" style="display: none;">
         <img src="assets/img/9_intro_outro_screens/game_over/game over.png" alt="">
+        <button onclick="replay()">Restart</button>
     </div>
 
 

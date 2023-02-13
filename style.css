@@ -7,6 +7,10 @@
     display: none;
 }
 
+.hover:hover {
+    cursor: pointer;
+}
+
 body {
     display: flex;
     align-items: center;
@@ -233,7 +237,7 @@ canvas {
 }
 
 .endscreen {
-    position: fixed;
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
@@ -241,6 +245,7 @@ canvas {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 1;
@@ -253,6 +258,24 @@ canvas {
 
     animation: zoomOut;
     animation-duration: 3s;
+}
+
+.endscreen button {
+    position: absolute;
+    bottom: 150px;
+    height: 50px;
+    width: 150px;
+    background-color: rgb(255, 177, 31);
+    color: black;
+    border: 0;
+    font-size: 40px;
+    font-family: 'zabras';
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.endscreen button:hover {
+    cursor: pointer;
 }
 
 @keyframes zoomOut {
@@ -385,7 +408,7 @@ canvas {
     }
     
     .soundStart {
-        bottom: 220px;
+        bottom: 250px;
     }
 
     .play-buttons {
@@ -399,5 +422,27 @@ canvas {
     
     .play-buttons img {
         height: 20px;
+    }
+}
+
+@media (max-height: 770px) {
+    .endscreen button {
+        bottom: 70px;
+    }
+}
+
+@media (max-height: 620px){
+    .explanation{
+        display: none;
+    }
+
+    .endscreen button {
+        bottom: 10px;
+    }
+}
+
+@media (min-width: 800px){
+    .play-buttons{
+        display: none;
     }
 }

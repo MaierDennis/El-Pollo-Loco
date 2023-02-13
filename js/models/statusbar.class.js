@@ -19,6 +19,11 @@ class Statusbar extends DrawableObject {
         this.setPercentage(100);
     }
 
+    /**
+     * Show the correct image of the Statusbar  
+     * 
+     * 
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageIndex()];
@@ -26,6 +31,11 @@ class Statusbar extends DrawableObject {
     }
 
 
+    /**
+     * Get the correct index of the statusbar-pictures
+     * 
+     * 
+     */
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;

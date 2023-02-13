@@ -30,6 +30,11 @@ class ThrowableObject extends MovableObject {
         this.animate();
     }
 
+    /**
+     * Set variables for the throw-animation
+     * 
+     * 
+     */
     throw(){
         this.speedY = 20;
         this.applyGravity();
@@ -39,10 +44,14 @@ class ThrowableObject extends MovableObject {
         }, 30);
     }
 
+    /**
+     * Play animation for the object if it hitts the endboss or not
+     * 
+     * 
+     */
     animate(){
         let IDOfBottleInterval = setInterval(() => {
             if(this.bottleHittedEndboss){
-               //console.log('Animation fertig'); 
                this.playAnimation(this.IMAGES_BOTTLESPLASH);
                 clearInterval(IDOfBottleInterval);
             }

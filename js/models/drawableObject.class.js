@@ -13,17 +13,30 @@ class DrawableObject {
         right: 0
     };
 
-
-
+    /**
+     * Load image from path
+     * 
+     * @param {string} path - The path of the Image
+     */
     loadImage(path) {
         this.img = new Image(); //this.img = document.getElementById('image') <img id="image" src>
         this.img.src = path;
     }
 
+    /**
+     * Draw the context
+     * 
+     * @param {string} ctx - canvas.getContext('2d')
+     */
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Load Images from array
+     * 
+     * @param {string} arr - All paths in the images-array
+     */
     loadImages(arr) {
         arr.forEach(path => {
             let img = new Image();
@@ -32,6 +45,11 @@ class DrawableObject {
         });
     }
 
+    /**
+     * Draw frames for colliding methodes
+     * 
+     * @param {string} ctx - canvas.getContext('2d')
+     */
     drawFrame(ctx) {
         /*if (this instanceof Character) {
             ctx.beginPath();

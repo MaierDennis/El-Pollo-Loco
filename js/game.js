@@ -5,23 +5,48 @@ let soundIsOn = false;
 
 let start_sound = new Audio('assets/audio/audio_start.mp3');
 
+/**
+ * Start the game, create world and canvas
+ * 
+ * 
+ */
 function init() {
     document.getElementById('game').style.display = "flex";
     document.getElementById('startScreen').style.display = "none";
+    document.getElementById('endScreen').style.display = "none";
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
     playSound();
-    //checkOnTouch();
+    bindBtnPressEvents();
     
     //console.log('My Character is', world.character);
 }
 
+/**
+ * Replay the game
+ * 
+ * 
+ */
+function replay(){
+    window.location.href = 'index.html';
+}
+
+/**
+ * Check if sound is enabled and play startsound
+ * 
+ * 
+ */
 function playSound(){
     if (soundIsOn) {
         start_sound.play();
     }
 }
 
+/**
+ * Set sound on
+ * 
+ * 
+ */
 function soundOn(){
     document.getElementById('soundOff').style.display = 'none';
     document.getElementById('soundStartOff').style.display = 'none';
@@ -29,53 +54,17 @@ function soundOn(){
     world.soundOn = true;
 }
 
+/**
+ * Set sound off
+ * 
+ * 
+ */
 function soundOff(){
     document.getElementById('soundOff').style.display = 'block';
     document.getElementById('soundStartOff').style.display = 'block';
     soundIsOn = false;
     world.soundOn = false;
 }
-
-function fullScreen(){
-    let fullscreen = document.getElementById('fullscreen');
-    enterFullscreen(fullscreen);
-    document.getElementById('canvas').style.height = '100vh';
-    document.getElementById('canvas').style.width = '100vw';
-    document.getElementById('fullScreenImage').src = "assets/img/fullscreen-exit.png"
-    document.getElementById('fullScreenImageDiv').style.top = '20px';
-    document.getElementById('fullScreenImage').onclick = exitFullscreen;
-    document.getElementById('keys').style.display = 'none';
-}
-
-function enterFullscreen(element) {
-    if (element.requestFullscreen) {
-        element.requestFullscreen();
-    } else if (element.msRequestFullscreen) {      // for IE11 (remove June 15, 2022)
-        element.msRequestFullscreen();
-    } else if (element.webkitRequestFullscreen) {  // iOS Safari
-        element.webkitRequestFullscreen();
-    }
-}
-
-function exitFullscreen() {
-    if(document.exitFullscreen) {
-      document.exitFullscreen();
-    } else if(document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-    }
-    document.getElementById('canvas').style.height = '480px';
-    document.getElementById('canvas').style.width = '720px';
-    document.getElementById('fullScreenImage').src = 'assets/img/fullscreen.png';
-    document.getElementById('fullScreenImageDiv').style.top = '200px';
-    document.getElementById('fullScreenImage').onclick = fullScreen;
-    document.getElementById('keys').style.display = 'flex';
-  }
- 
-  function checkOnTouch(){
-    setInterval(() => {
-        bindBtnPressEvents();
-    }, 10);
-  }
 
   function bindBtnPressEvents(){
     document.getElementById('btnRight').addEventListener('touchstart', (e) => {
@@ -85,7 +74,7 @@ function exitFullscreen() {
 
     document.getElementById('btnRight').addEventListener('touchend', (e) => {
         e.preventDefault();
-        world.keyboard.RIGHT = false;
+        keyboard.RIGHT = false;
     });
 
     document.getElementById('btnLeft').addEventListener('touchstart', (e) => {
@@ -103,7 +92,7 @@ function exitFullscreen() {
         keyboard.UP = true;
     });
     
-    document.getElementById('btnUP').addEventListener('touchend', (e) => {
+    document.getElementById('btnUp').addEventListener('touchend', (e) => {
         e.preventDefault();
         keyboard.UP = false;
     });

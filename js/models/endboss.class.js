@@ -57,6 +57,11 @@ class Endboss extends MovableObject {
         
     }
 
+    /**
+     * Start endboss walking if character is near enough
+     * 
+     * 
+     */
     startEndboss(){
         setInterval(() => {
             if (this.firstContactEndboss) {
@@ -65,10 +70,20 @@ class Endboss extends MovableObject {
         }, 20);
     }
 
+    /**
+     * Move the endboss to the left
+     * 
+     * 
+     */
     moveToLeft(){
             this.moveLeft();
     }
 
+    /**
+     * Animates the endboss if walking, angry or dead
+     * 
+     * 
+     */
     animate() {
         this.startEndboss();
 
@@ -78,22 +93,34 @@ class Endboss extends MovableObject {
             }
             else if (this.energy < 100 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_ANGRY);
-                this.speed = 5;
+                this.speed = 2;
             }
             else if (this.energy <= 0) {
-                this.playAnimation(this.IMAGES_DEAD);
-                //console.log('Endboss dead');
-                this.speed = 0;
-                this.playWinSound();
-                setTimeout(() => {
-                    this.world.gameOver = true;
-                    clearInterval(IDOfInterval);
-                }, 2000);
-                
+                this.endbossIsDead();
             }
         }, 150);
     }
 
+    /**
+     * Play animation for dead endboss
+     * 
+     * 
+     */
+    endbossIsDead(){
+        this.playAnimation(this.IMAGES_DEAD);
+                this.speed = 0;
+                this.playWinSound();
+                setTimeout(() => {
+                    this.world.gameOver = true;
+                    clearInterval(this.IDOfInterval);
+                }, 2000); 
+    }
+
+    /**
+     * Play sound for dead endboss
+     * 
+     * 
+     */
     playWinSound(){
         if (this.world.soundOn) {
             this.win_sound.play();
